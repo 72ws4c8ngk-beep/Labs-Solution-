@@ -15,9 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.studyplanner.ui.theme.StudyPlannerTheme
 
-// App Colors
 private val Navy = Color(0xFF192C51)
 private val Blue = Color(0xFF405A92)
 private val LightBackground = Color(0xFFF4F6FB)
@@ -302,14 +300,14 @@ fun PlannerHomeRoute() {
     )
 }
 
-// Preview 1: 3 of 7 Tasks
+// Preview 1: 3 of 7
 @Preview(
     showBackground = true,
     name = "Tasks In Progress"
 )
 @Composable
 private fun PlannerHomePreview() {
-    StudyPlannerTheme {
+    MaterialTheme {
         PlannerHomeScreen(
             uiState = PlannerUiState(
                 greeting = "Welcome back!",
@@ -321,14 +319,14 @@ private fun PlannerHomePreview() {
     }
 }
 
-// Preview 2: 7 of 7 Tasks
+// Preview 2: 7 of 7
 @Preview(
     showBackground = true,
     name = "All Tasks Completed"
 )
 @Composable
 private fun PlannerHomeCompletedPreview() {
-    StudyPlannerTheme {
+    MaterialTheme {
         PlannerHomeScreen(
             uiState = PlannerUiState(
                 greeting = "Great job!",
