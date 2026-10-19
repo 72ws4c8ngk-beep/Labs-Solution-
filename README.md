@@ -4,7 +4,6 @@
 This repository contains my lab solutions for the CSC 402 Mobile Application Development course.
 
 ## Labs
-- Lab 1
 - Lab 2
 - Lab 3
 - Lab 4
