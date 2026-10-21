@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import com.example.lab5.navigation.CourseApp
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

@@ -12,6 +12,7 @@ import com.example.lab5.CourseDetailRoute
 
 @Composable
 fun CourseApp() {
+
     val navController = rememberNavController()
 
     NavHost(
