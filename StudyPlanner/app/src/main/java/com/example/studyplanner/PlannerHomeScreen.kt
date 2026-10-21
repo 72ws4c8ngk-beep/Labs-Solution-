@@ -25,7 +25,8 @@ private val GrayText = Color(0xFF64748B)
 data class PlannerUiState(
     val greeting: String = "Welcome back!",
     val totalTasks: Int = 7,
-    val completedTasks: Int = 3
+    val completedTasks: Int = 3,
+    val tasks: List<String> = emptyList()
 )
 
 // Stateless Screen
@@ -33,6 +34,7 @@ data class PlannerUiState(
 fun PlannerHomeScreen(
     uiState: PlannerUiState,
     onCompleteTask: () -> Unit,
+    onTaskClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val progress = if (uiState.totalTasks > 0) {
@@ -53,7 +55,6 @@ fun PlannerHomeScreen(
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(18.dp)
     ) {
-
         // Header
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -143,6 +144,40 @@ fun PlannerHomeScreen(
                 symbol = "✓",
                 modifier = Modifier.weight(1f)
             )
+        }
+
+        // Study Tasks - Lab 5
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(20.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = Color.White
+            )
+        ) {
+            Column(
+                modifier = Modifier.padding(20.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Text(
+                    text = "My Study Tasks",
+                    color = Navy,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
+
+                uiState.tasks.forEach { task ->
+                    OutlinedButton(
+                        onClick = { onTaskClick(task) },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text(
+                            text = task,
+                            color = Navy
+                        )
+                    }
+                }
+            }
         }
 
         // Today's Goal Card
@@ -283,9 +318,19 @@ private fun StatisticCard(
 
 // Stateful Route
 @Composable
-fun PlannerHomeRoute() {
+fun PlannerHomeRoute(
+    onTaskClick: (String) -> Unit = {}
+) {
     var uiState by remember {
-        mutableStateOf(PlannerUiState())
+        mutableStateOf(
+            PlannerUiState(
+                tasks = listOf(
+                    "Study Kotlin",
+                    "Complete Lab 5 Report",
+                    "Review Jetpack Compose"
+                )
+            )
+        )
     }
 
     PlannerHomeScreen(
@@ -296,11 +341,12 @@ fun PlannerHomeRoute() {
                     completedTasks = uiState.completedTasks + 1
                 )
             }
-        }
+        },
+        onTaskClick = onTaskClick
     )
 }
 
-// Preview 1: 3 of 7
+// Preview 1
 @Preview(
     showBackground = true,
     name = "Tasks In Progress"
@@ -312,14 +358,20 @@ private fun PlannerHomePreview() {
             uiState = PlannerUiState(
                 greeting = "Welcome back!",
                 totalTasks = 7,
-                completedTasks = 3
+                completedTasks = 3,
+                tasks = listOf(
+                    "Study Kotlin",
+                    "Complete Lab 5 Report",
+                    "Review Jetpack Compose"
+                )
             ),
-            onCompleteTask = {}
+            onCompleteTask = {},
+            onTaskClick = {}
         )
     }
 }
 
-// Preview 2: 7 of 7
+// Preview 2
 @Preview(
     showBackground = true,
     name = "All Tasks Completed"
@@ -331,9 +383,15 @@ private fun PlannerHomeCompletedPreview() {
             uiState = PlannerUiState(
                 greeting = "Great job!",
                 totalTasks = 7,
-                completedTasks = 7
+                completedTasks = 7,
+                tasks = listOf(
+                    "Study Kotlin",
+                    "Complete Lab 5 Report",
+                    "Review Jetpack Compose"
+                )
             ),
-            onCompleteTask = {}
+            onCompleteTask = {},
+            onTaskClick = {}
         )
     }
 }
